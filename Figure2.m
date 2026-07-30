@@ -1,38 +1,43 @@
 clear
 load('Figure2.mat')
 
+
+
 %%
-% group1 = Braak1_gCAP_75;
-% group2 = Meta_gCAP_75;
-% group3 = Braak34_gCAP_75;
-% group4 = Braak5_gCAP_75;
-% group5 = Braak6_gCAP_75;
-% colors = [
-%     254, 237, 207;  % Light Mustard Yellow
-%     254, 212, 139;  % Soft Mustard Yellow
-%     253, 183, 62;   % Mustard Yellow
-%     231, 159, 49;   % Deep Mustard Yellow
-%     217, 139, 25    % Dark Mustard Yellow
-% ] / 255;
-
-
-group1 = Braak1_tau_75;
-group2 = Meta_tau_75;
-group3 = Braak34_tau_75;
-group4 = Braak5_tau_75;
-group5 = Braak6_tau_75;
+group1 = Braak1_gCAP_75;
+group2 = Meta_gCAP_75;
+group3 = Braak34_gCAP_75;
+group4 = Braak5_gCAP_75;
+group5 = Braak6_gCAP_75;
 colors = [
-    178, 216, 216;  % Light Teal Green
-    102, 178, 178;  % Soft Teal Green
-    0, 128, 128;    % Teal Green
-    0, 102, 102;    % Deep Teal Green
-    0, 76, 76       % Dark Teal Green
+    254, 237, 207;  % Light Mustard Yellow
+    254, 212, 139;  % Soft Mustard Yellow
+    253, 183, 62;   % Mustard Yellow
+    231, 159, 49;   % Deep Mustard Yellow
+    217, 139, 25    % Dark Mustard Yellow
 ] / 255;
 
+
+% group1 = Braak1_tau_75;
+% group2 = Meta_tau_75;
+% group3 = Braak34_tau_75;
+% group4 = Braak5_tau_75;
+% group5 = Braak6_tau_75;
+% colors = [
+%     178, 216, 216;  % Light Teal Green
+%     102, 178, 178;  % Soft Teal Green
+%     0, 128, 128;    % Teal Green
+%     0, 102, 102;    % Deep Teal Green
+%     0, 76, 76       % Dark Teal Green
+% ] / 255;
+
 % function_boxplot_5groups(group1, group2, group3, group4, group5,0.2,0.1,'gCAP')
+function_boxplot_5groups_stats( ...
+    group1, group2, group3, group4, group5, ...
+    {'Braak I', 'meta-tem', 'Braak III-IV', 'Braak V', 'Braak VI'});
 %%
 
-% exportgraphics(gcf, '/nfs/data2/Yutong/AD/NBtau/Paper/Figures_Oct_modify/Figure2/tau_boxplot.png', 'Resolution', 300);
+% print(gcf, 'Figure2B_tau.svg', '-dsvg');
 
 % Sample data
 group_data = {group1, group2, group3, group4, group5};
@@ -91,45 +96,7 @@ set(gca, 'XTickLabel', []);
 set(gca, 'YTickLabel', []);
 
 %%
-% Add significance annotations
-y_max = max(cellfun(@max, group_data)); % Maximum y value in the data
-y_min = min(cellfun(@min, group_data)); % Minimum y value in the data
-y_range = y_max - y_min;
-y_offset = 0.05 * y_range; % Offset for the significance lines
-num_comparisons = num_groups * (num_groups - 1) / 2;
-y_positions = linspace(y_max + y_offset, y_max + num_comparisons * y_offset, num_comparisons);
-
-comparison_idx = 1;
-for i = 1:num_groups
-    for j = i+1:num_groups
-        p_val = p_values(i, j);
-        if ~isnan(p_val)
-            % Determine the significance symbol based on p-value
-            sig_symbol = '';
-            for k = 1:length(sig_thresholds)
-                if p_val < sig_thresholds(k)
-                    sig_symbol = sig_symbols{k};
-                end
-            end
-            if ~isempty(sig_symbol)
-                % Calculate x positions for the line
-                x = [i, j];
-                % Calculate y position for the line and text
-                y = y_positions(comparison_idx);
-                % Draw the line
-                plot(x, [y, y], '-k', 'LineWidth', 1.5);
-                % Place the significance symbol
-                text(mean(x), y + 0.01 * y_range, sig_symbol, ...
-                     'HorizontalAlignment', 'center', 'FontSize', 12, 'FontWeight', 'bold');
-                comparison_idx = comparison_idx + 1;
-            end
-        end
-    end
-end
-
-hold off;
-
-%%
+% print(gcf, 'Figure2B_gCAP.svg', '-dsvg');
 group_data = {group1, group2, group3, group4, group5};
 
 % Perform pairwise t-tests and store p-values
@@ -165,33 +132,33 @@ hold on;
 
 % Plot median line
 medians = cellfun(@median, group_data);
-plot(1:length(medians), medians, 'k-', 'LineWidth', 1.5, 'Color', [0, 128, 128]/255);
+plot(1:length(medians), medians, 'k-', 'LineWidth', 1.5, 'Color', [253, 183, 62]/255)
 
 % Set x-axis labels
 set(gca, 'XTick', 1:num_groups, 'XTickLabels', {'braak1', 'braak3', 'braak4', 'braak5', 'braak6'});
-yticks(1.0:0.5:2.0);
+yticks(0:0.5:2.0);
 
 ax = gca;  
 ax.XAxis.LineWidth = 2;  
 ax.YAxis.LineWidth = 2; 
 
 % Compute data bounds
-y_max = max(cellfun(@max, group_data));
-y_min = min(cellfun(@min, group_data));
-y_range = y_max - y_min;
-
-% Layout config: set a small gap above violins
-top_margin_ratio = 0.08;
-annotation_space_ratio = 0.14;  % top 14% for all annotation lines
-
-% Compute annotation heights (compact)
-num_comparisons = num_groups * (num_groups - 1) / 2;
-y_annotation_start = y_max + y_range * 0.01;
-y_annotation_end = y_max + y_range * annotation_space_ratio;
-y_positions = linspace(y_annotation_start, y_annotation_end, num_comparisons);
-
-% Set y-limits so annotations go up to the top
-ylim([y_min - 0.05 * y_range, y_max + y_range * (annotation_space_ratio + top_margin_ratio)]);
+% y_max = max(cellfun(@max, group_data));
+% y_min = min(cellfun(@min, group_data));
+% y_range = y_max - y_min;
+% 
+% % Layout config: set a small gap above violins
+% top_margin_ratio = 0.08;
+% annotation_space_ratio = 0.14;  % top 14% for all annotation lines
+% 
+% % Compute annotation heights (compact)
+% num_comparisons = num_groups * (num_groups - 1) / 2;
+% y_annotation_start = y_max + y_range * 0.01;
+% y_annotation_end = y_max + y_range * annotation_space_ratio;
+% y_positions = linspace(y_annotation_start, y_annotation_end, num_comparisons);
+% 
+% % Set y-limits so annotations go up to the top
+% ylim([y_min - 0.05 * y_range, y_max + y_range * (annotation_space_ratio + top_margin_ratio)]);
 
 % Adjust plot box to use more vertical space
 ax = gca;
@@ -201,29 +168,29 @@ ax.Position = [0.1, 0.15, 0.85, 0.85];  % [left, bottom, width, height]
 set(gca, 'XTickLabel', []);
 set(gca, 'YTickLabel', []);
 
-% Add significance annotations (same logic)
-comparison_idx = 1;
-for i = 1:num_groups
-    for j = i+1:num_groups
-        p_val = p_values(i, j);
-        if ~isnan(p_val)
-            sig_symbol = '';
-            for k = 1:length(sig_thresholds)
-                if p_val < sig_thresholds(k)
-                    sig_symbol = sig_symbols{k};
-                end
-            end
-            if ~isempty(sig_symbol)
-                x = [i, j];
-                y = y_positions(comparison_idx);
-                plot(x, [y, y], '-k', 'LineWidth', 1.5);
-                text(mean(x), y + 0.01 * y_range, sig_symbol, ...
-                    'HorizontalAlignment', 'center', 'FontSize', 12, 'FontWeight', 'bold');
-                comparison_idx = comparison_idx + 1;
-            end
-        end
-    end
-end
+% % Add significance annotations (same logic)
+% comparison_idx = 1;
+% for i = 1:num_groups
+%     for j = i+1:num_groups
+%         p_val = p_values(i, j);
+%         if ~isnan(p_val)
+%             sig_symbol = '';
+%             for k = 1:length(sig_thresholds)
+%                 if p_val < sig_thresholds(k)
+%                     sig_symbol = sig_symbols{k};
+%                 end
+%             end
+%             if ~isempty(sig_symbol)
+%                 x = [i, j];
+%                 y = y_positions(comparison_idx);
+%                 plot(x, [y, y], '-k', 'LineWidth', 1.5);
+%                 text(mean(x), y + 0.01 * y_range, sig_symbol, ...
+%                     'HorizontalAlignment', 'center', 'FontSize', 12, 'FontWeight', 'bold');
+%                 comparison_idx = comparison_idx + 1;
+%             end
+%         end
+%     end
+% end
 
 
 
@@ -268,9 +235,9 @@ input_title = 'braak 6';
 
 %%
 
-
-data1 = (load gCAP here)
-data2 = (load tau here)     
+% 
+% data1 = (load gCAP here)
+% data2 = (load tau here)     
 
 % Color: Red - #D73027
 % Color: Blue - #4575B4

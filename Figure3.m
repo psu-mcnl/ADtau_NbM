@@ -19,8 +19,7 @@ function_scatterplot(tau_bk5_t1,gCAP_bk5_apc,input_xlabel,input_ylabel,input_tit
 %%
 
 
-data1 = gCAP_bk5_t1;   % PSC (unstratified)
-% data2 = braak_tau_t1(:,1);           % Tau (same group)
+data1 = gCAP_bk5_t1;            
 data2 = tau_bk5_apc;
 % Color: Red - #D73027
 psc_color =[0.843, 0.188, 0.153];
@@ -76,8 +75,7 @@ rho, pval
 %%
 
 
-data1 = tau_bk5_t1;   % PSC (unstratified)
-% data2 = braak_tau_t1(:,1);           % Tau (same group)
+data1 = tau_bk5_t1;   
 data2 = gCAP_bk5_apc;
 % Color: Red - #D73027
 psc_color =[0.843, 0.188, 0.153];
@@ -164,8 +162,8 @@ function_scatterplot(data1, data2, 'NB ranked', 'tau change ranked', 'both contr
 
 %%
 
-data1 = NB_t1;   % PSC (unstratified)
-% data2 = braak_tau_t1(:,1);           % Tau (same group)
+data1 = NB_t1;  
+% data2 = braak_tau_t1(:,1);       
 data2 = tau_bk5_apc;
 % Color: Red - #D73027
 psc_color =[0.843, 0.188, 0.153];
@@ -291,8 +289,7 @@ function_scatterplot(tau_metatemporal_t1,gCAP_metatemporal_apc,input_xlabel,inpu
 
 %%
 
-data1 = gCAP_metatemporal_t1;   % PSC (unstratified)
-% data2 = braak_tau_t1(:,1);           % Tau (same group)
+data1 = gCAP_metatemporal_t1;            
 data2 = tau_metatemporal_apc;
 % Color: Blue - #D73027
 psc_color =[0.271, 0.459, 0.706];
@@ -348,8 +345,7 @@ rho, pval
 
 %%
 
-data1 = tau_metatemporal_t1;   % PSC (unstratified)
-% data2 = braak_tau_t1(:,1);           % Tau (same group)
+data1 = tau_metatemporal_t1;   
 data2 = gCAP_metatemporal_apc;
 % Color: Blue
 psc_color =[0.271, 0.459, 0.706];
@@ -436,8 +432,8 @@ function_scatterplot(data1, data2, 'NB ranked', 'tau change ranked', 'both contr
 
 %%
 
-data1 = NB_abeta_t1.pos;   % PSC (unstratified)
-% data2 = braak_tau_t1(:,1);           % Tau (same group)
+data1 = NB_abeta_t1.pos;   
+% data2 = braak_tau_t1(:,1);           
 data2 = tau_metatemporal_apc;
 % Color: Blue
 psc_color =[0.271, 0.459, 0.706];
@@ -494,7 +490,7 @@ rho, pval
 %%
 
 
-data1 = X_res;   % PSC (unstratified)
+data1 = X_res;   
 % data2 = braak_tau_t1(:,1);           % Tau (same group)
 data2 = Y_res;
 % Color: Blue

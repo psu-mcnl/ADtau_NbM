@@ -3,10 +3,9 @@ load('Figure4_MCI.mat')
 
 
 %%
-% exportgraphics(gcf, '/nfs/data2/Yutong/AD/NBtau/Paper/Figures/official_draft_2/Figure_4/MCI_gCAP_MMSE.png', 'Resolution', 300);
 
-data1 = Overall_gCAP;   % PSC (unstratified)
-data2 = MCI_MMSE;           % Tau (same group)
+data1 = Overall_gCAP;   
+data2 = MCI_MMSE;         
 
 psc_color = [0.843, 0.188, 0.153];
 ci_color = psc_color + (1 - psc_color) * 0.8;  % lighter for CI
@@ -61,10 +60,9 @@ rho, pval
 
 
 %%
-% exportgraphics(gcf, '/nfs/data2/Yutong/AD/NBtau/Paper/Figures/official_draft_2/Figure_4/MCI_tau_MMSE.png', 'Resolution', 300);
 
-data1 = Overall_tau;   % PSC (unstratified)
-data2 = MCI_MMSE;           % Tau (same group)
+data1 = Overall_tau;   
+data2 = MCI_MMSE;         
 
 psc_color = [0.843, 0.188, 0.153];
 ci_color = psc_color + (1 - psc_color) * 0.8;  % lighter for CI

@@ -1,6 +1,8 @@
 % Load Data
 load('Figure1.mat')
 
+% Zoom out the plot if there are outliers. For example, Figure 1A, Figure
+% 1D-MCI
 %%
 % Combine data
 data1 = double([NB_t1; NB_abeta_t1.pos; NB_abeta_t1.neg]);
@@ -63,21 +65,6 @@ ax.TickDir = 'out';
 ax.XAxis.TickDirection = 'out';
 ax.YAxis.TickDirection = 'out';
 % axis tight;
-
-
-% % Dummy plots for the legend
-% hold on;
-% h1 = scatter([],[], 20000, [0.843, 0.188, 0.153], 'filled', 'MarkerFaceAlpha', 0.7);
-% h2 = scatter([],[], 20000, [0.271, 0.459, 0.706], 'filled', 'MarkerFaceAlpha', 0.7);
-% h3 = scatter([],[], 20000, [0.902, 0.671, 0.008], 'filled', 'MarkerFaceAlpha', 0.7);
-% 
-% % Add legend
-% lgd = legend([h1, h2, h3], {'MCI Subjects', 'CN abnormal-CSF Subjects', 'CN normal-CSF Subjects'}, 'Location', 'best');
-% lgd.FontSize = 20;
-% lgd.FontWeight = 'bold';
-
-% print(gcf, '/nfs/data2/Yutong/AD/NBtau/Paper/Figures/official_draft_1/Figure_1/NBtau_withlegend.png', '-dpng', '-r300'); 
-
 
 [rho, p2] = corr(data1, data2, 'type', 'Spearman');
 disp(['Rho: ', num2str(rho)]);
@@ -146,7 +133,7 @@ ax.XAxis.TickDirection = 'out';
 ax.YAxis.TickDirection = 'out';
 % axis tight;
 
-%% Combine 3 groups 
+%% Figure S2
 
 data1 = double([NB_t1; NB_abeta_t1.pos; NB_abeta_t1.neg]);
 data2 = [tau_change_MCI; tau_change_CUaCSF; tau_change_CUnCSF];
@@ -214,7 +201,7 @@ p2
 % set(gca, 'XTickLabel', []);
 % set(gca, 'YTickLabel', []);
 
-%% Combine 3 groups 
+%% Figure S2 
 
 
 data1 = double([tau_t1; Tau_abeta_t1.pos; Tau_abeta_t1.neg]);
@@ -351,8 +338,8 @@ set(gca, 'YTickLabel', []);
 
 %%
 % Data
-data1 = double(NB_abeta_t1.pos);     % PSC (pos group)
-data2 = Tau_abeta_t1.pos;             % Tau (pos group)
+data1 = double(NB_abeta_t1.pos);    
+data2 = Tau_abeta_t1.pos;             
 
 % Color: Blue - #4575B4
 pos_color = [0.271, 0.459, 0.706];
@@ -409,8 +396,8 @@ set(gca, 'YTickLabel', []);
 %%
 
 % Data
-data1 = double(NB_t1);   % PSC (unstratified)
-data2 = tau_t1;           % Tau (same group)
+data1 = double(NB_t1);   
+data2 = tau_t1;          
 
 % Color: Red - #D73027
 psc_color = [0.843, 0.188, 0.153];
@@ -463,10 +450,10 @@ set(gca, 'XTickLabel', []);
 set(gca, 'YTickLabel', []);
 
 
-%%
+%% ========================================================================
+% Longitudinal
 
 
-% Data (only PSC_abeta_t1.neg and Tau_abeta_t1.neg)
 data1 = double(NB_abeta_t1.neg);
 data2 = tau_change_CUnCSF;
 
@@ -529,7 +516,6 @@ p2
 
 %%
 
-% Data (only PSC_abeta_t1.neg and Tau_abeta_t1.neg)
 data1 = double(Tau_abeta_t1.neg);
 data2 = NB_change_CUnCSF;
 
@@ -590,8 +576,8 @@ p2
 %%
 
 % Data
-data1 = double(NB_abeta_t1.pos);     % PSC (pos group)
-data2 = tau_change_CUaCSF;             % Tau (pos group)
+data1 = double(NB_abeta_t1.pos);     
+data2 = tau_change_CUaCSF;           
 
 % Color: Blue - #4575B4
 pos_color = [0.271, 0.459, 0.706];
@@ -647,8 +633,8 @@ ax.YAxis.TickDirection = 'out';
 rho, pval
 %%
 % Data
-data1 = double(Tau_abeta_t1.pos);     % PSC (pos group)
-data2 = NB_change_CUaCSF;             % Tau (pos group)
+data1 = double(Tau_abeta_t1.pos);     
+data2 = NB_change_CUaCSF;             
 
 % Color: Blue - #4575B4
 pos_color = [0.271, 0.459, 0.706];
@@ -703,8 +689,8 @@ rho, pval
 
 %%
 % Data
-data1 = double(NB_t1);   % PSC (unstratified)
-data2 = tau_change_MCI;           % Tau (same group)
+data1 = double(NB_t1);   
+data2 = tau_change_MCI;         
 
 % Color: Red - #D73027
 psc_color = [0.843, 0.188, 0.153];
@@ -755,8 +741,8 @@ rho, pval
 
 %%
 % Data
-data1 = double(tau_t1);   % PSC (unstratified)
-data2 = NB_change_MCI;           % Tau (same group)
+data1 = double(tau_t1);   
+data2 = NB_change_MCI;           
 
 % Color: Red - #D73027
 psc_color = [0.843, 0.188, 0.153];
